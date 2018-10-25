@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -25,6 +26,16 @@ namespace Exam_uwp.view
         public ShowFile()
         {
             this.InitializeComponent();
+            showFile();
+        }
+        private async void showFile()
+        {
+            Windows.Storage.StorageFolder storageFolder =
+                Windows.Storage.ApplicationData.Current.LocalFolder;
+            Windows.Storage.StorageFile sampleFile =
+                await storageFolder.GetFileAsync("test.txt");
+            string text = await Windows.Storage.FileIO.ReadTextAsync(sampleFile);
+            Debug.WriteLine(text);
         }
     }
 }
